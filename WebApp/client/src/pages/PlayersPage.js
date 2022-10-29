@@ -49,7 +49,6 @@ const playerColumns = [
       sorter: (a, b) => a.dateOfBirth - b.dateOfBirth
       
     },
-    // TASK 7: add a column for Potential, with the ability to (numerically) sort ,
     {
       title: 'Hand',
       dataIndex: 'hand',
@@ -92,12 +91,10 @@ class PlayersPage extends React.Component {
     }
 
     handleHandQueryChange(event) {
-        // TASK 20: update state variables appropriately. See handleNameQueryChange(event) for reference
         this.setState({ handQuery: event.target.value })
     }
 
     handleNationalityQueryChange(event) {
-        // TASK 21: update state variables appropriately. See handleNameQueryChange(event) for reference
         this.setState({ nationalityQuery: event.target.value })
     }
 
@@ -114,7 +111,6 @@ class PlayersPage extends React.Component {
 
 
     updateSearchResults() {
-        //TASK 23: call getPlayerSearch and update playerResults in state. See componentDidMount() for a hint
         getPlayerSearch(this.state.nameQuery, this.state.nationalityQuery, this.state.handQuery, this.state.birthHighQuery, this.state.birthLowQuery, null, null).then(res => {
             this.setState({ playersResults: res.results })
         })
@@ -135,12 +131,8 @@ class PlayersPage extends React.Component {
         })
 
         getAllPlayers().then(res => {
-            // TASK 1: set the correct state attribute to res.results
             this.setState({ playersResults: res.results })
           })
-
-        // TASK 25: call getPlayer with the appropriate parameter and set update the correct state variable. 
-        // See the usage of getMatch in the componentDidMount method of MatchesPage for a hint! 
         getPlayer(this.state.selectedPlayerId).then(res => {
             this.setState({ selectedPlayerDetails: res.results[0] })
         })
@@ -186,9 +178,7 @@ class PlayersPage extends React.Component {
                                 <label style={{color:'white'}}>Date of birth</label>
                                 <Slider  min={1970} max={2022} range defaultValue={[1970, 2022]} onChange={this.handleBirthChange} />
                             </FormGroup>
-                        </Col>
-                        {/* TASK 27: Create a column with a label and slider in a FormGroup item for filtering by Potential. See the column above for reference and use the onChange method (handlePotentialChange)  */}
-            
+                        </Col>            
                         <Col flex={2}><FormGroup style={{ width: '10vw' }}>
                             <Button style={{ marginTop: '4vh' }} onClick={this.updateSearchResults}>Search</Button>
                         </FormGroup></Col>
@@ -198,7 +188,6 @@ class PlayersPage extends React.Component {
 
                 </Form>
                 <Divider />
-                {/* TASK 24: Copy in the players table from the Home page, but use the following style tag: style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }} - this should be one line of code! */}
                 <div style={{ margin: '0 2vh', marginTop: '2vh', display: 'flex' }}>
                     <div style={{ width: '90vw', margin: '0 2vh'}}>
                     <h3 style={{color:'white'}}>Players</h3>

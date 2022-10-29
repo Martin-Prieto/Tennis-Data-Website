@@ -63,7 +63,6 @@ const playerColumns = [
     sorter: (a, b) => a.dateOfBirth - b.dateOfBirth
     
   },
-  // TASK 7: add a column for Potential, with the ability to (numerically) sort ,
   {
     title: 'Hand',
     dataIndex: 'hand',
@@ -136,8 +135,6 @@ class GrandSlams extends React.Component {
 
   tourneyOnChange(value) {
     console.log(value)
-    // TASK 2: this value should be used as a parameter to call getAllMatches in fetcher.js with the parameters page and pageSize set to null
-    // then, matchesResults in state should be set to the results returned - see a similar function call in componentDidMount()
     getAllMatches(null, null, value).then(res => {
       this.setState({ matchesResults: res.results })
     })
@@ -158,7 +155,6 @@ class GrandSlams extends React.Component {
 
     getAllPlayers().then(res => {
       console.log(res.results)
-      // TASK 1: set the correct state attribute to res.results
       console.log(res.results)
       this.setState({ playersResults: res.results })
     })
@@ -177,7 +173,6 @@ class GrandSlams extends React.Component {
 }
 
 updateSearchResults() {
-  //TASK 23: call getPlayerSearch and update playerResults in state. See componentDidMount() for a hint
   getHandStats(this.state.timeHighQuery, this.state.timeLowQuery, null, null).then(res => {
     console.log(res.results)
     this.setState({ slamInfoResults: res.results[0] })

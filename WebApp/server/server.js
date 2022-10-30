@@ -8,16 +8,12 @@ const config = require('./config.json')
 
 const app = express();
 
-// whitelist localhost 3000
 app.use(cors({ credentials: true, origin: ['http://localhost:3000'] }));
 
-// Route 1 - register as GET 
 app.get('/hello', routes.hello)
 
-// Route 3 - register as GET 
 app.get('/matches/:tourney', routes.all_matches)
 
-// Route 4 - register as GET 
 app.get('/players', routes.all_players)
 
 app.get('/champions/:tourney', routes.champions)

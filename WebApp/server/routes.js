@@ -2,7 +2,6 @@ const config = require('./config.json')
 const mysql = require('mysql');
 const e = require('express');
 
-// TODO: fill in your connection details here
 const connection = mysql.createConnection({
     host: config.rds_host,
     user: config.rds_user,
@@ -13,17 +12,11 @@ const connection = mysql.createConnection({
 connection.connect();
 
 
-// ********************************************
-//            SIMPLE ROUTE EXAMPLE
-// ********************************************
-
-// Route 1 (handler)
 async function hello(req, res) {
-    // a GET request to /hello?name=Steve
     if (req.query.name) {
-        res.send(`Hello, ${req.query.name}! Welcome to the FIFA server!`)
+        res.send(`Hello, ${req.query.name}! Welcome to the Tennis server!`)
     } else {
-        res.send(`Hello! Welcome to the FIFA server!`)
+        res.send(`Hello! Welcome to the Tennis server!`)
     }
 }
 
@@ -31,8 +24,6 @@ async function all_matches(req, res) {
     console.log(req.params)
 
     const tourney = req.params.tourney ? req.params.tourney : 'Wimbledon'
-    //const pagesize = req.params.pagesize ? req.params.pagesize : 10
-    // use this league encoding in your query to furnish the correct results
 
     if (tourney === "All") {
         connection.query(`SELECT M.round AS round, M.match_id AS "key", M.loser_id AS LoserId, M.winner_id AS WinnerId, tourney_name AS tourney, tourney_date AS date, surface, P1.name AS winner, P2.name AS loser, score, best_of
@@ -67,8 +58,6 @@ async function champions(req, res) {
 
 
     const tourney = req.params.tourney ? req.params.tourney : 'Wimbledon'
-    //const pagesize = req.params.pagesize ? req.params.pagesize : 10
-    // use this league encoding in your query to furnish the correct results
         connection.query(`WITH champs AS (
             SELECT year, champion, first_prize, player_id AS champ_id
             FROM Tourneys T JOIN Players P ON T.champion = P.name
@@ -101,9 +90,7 @@ async function champions(req, res) {
 
 }
 
-// Route 4 (handler)
 async function all_players(req, res) {
-    // TODO: TASK 5: implement and test, potentially writing your own (ungraded) tests
     if (req.query.page && !isNaN(req.query.page)) {
 
         var pagesize = 10;
@@ -141,8 +128,6 @@ async function all_players(req, res) {
 }
 
 async function player(req, res) {
-    // TODO: TASK 7: implement and test, potentially writing your own (ungraded) tests
-
     if (req.query.id && Number.isInteger(parseInt(req.query.id))) {
         connection.query(`SELECT player_id AS PlayerId, Name, dob AS dateOfBirth, ioc AS Nationality, height, 
         CAST(DATEDIFF( Now(), dob )/365.25 AS UNSIGNED) AS age
@@ -190,9 +175,6 @@ async function player_matches(req, res) {
 }
 
 async function search_players(req, res) {
-    // TODO: TASK 9: implement and test, potentially writing your own (ungraded) tests
-    // IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
-
     var name = '';
     if (req.query.Name != null) {
         name = req.query.Name;
